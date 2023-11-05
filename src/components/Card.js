@@ -1,14 +1,33 @@
 import React, { useEffect, useState, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useDispatchCart, useCart } from './contextReducer'
 
 export default function Card(props) {
-    let dispatch = useDispatchCart();
-    let data = useCart()
-    const priceRef = useRef();
-    let options = props.options;
-    let priceOptions = Object.keys(options);
-    const [qty, setQty] = useState(1)
-    const [size, setSize] = useState("")
+    const dispatch = useDispatchCart(); //yes
+
+    let data = useCart(); //yes
+    let navigate = useNavigate() //yes
+
+    const priceRef = useRef(); //yes
+    let options = props.options; //yes
+    let foodItem = props.foodItems; //yes
+    let priceOptions = Object.keys(options); //yes
+    const [qty, setQty] = useState(1) //yes
+    const [size, setSize] = useState("") //yes
+
+    const handleClick = () => {
+        if (!localStorage.getItem("token")) {
+            navigate("/login")
+        }
+    }
+
+    const handleQty = (e) => {
+        setQty(e.target.value);
+    }
+    const handleOptions = (e) => {
+        setSize(e.target.value);
+    }
+
     const handleAddToCart = async () => {
         let food = []
         for (const item of data) {
@@ -18,9 +37,13 @@ export default function Card(props) {
                 break;
             }
         }
+
+        console.log(food)
+        console.log(new Date())
+
         if (food !== []) {
             if (food.size === size) {
-                await dispatch({ type: "UPDATE", id: props.food._id, price: food.price, qty: qty })
+                await dispatch({ type: "UPDATE", id: props.foodItem._id, price: food.price, qty: qty })
                 return
             }
             else if (food.size !== size) {
@@ -29,7 +52,7 @@ export default function Card(props) {
                 return
             }
         }
-        await dispatch({ type: "ADD", id: props.foodItem._id, name: props.foodItem.name, price: finalPrice, qty: qty, size, size })
+        await dispatch({ type: "ADD", id: props.foodItem._id, name:props.foodItem.name, price: finalPrice, qty: qty, size, size })
         return
     }
 
