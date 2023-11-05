@@ -12,26 +12,26 @@ export default function Cart() {
             </div>
         )
     }
-    // const handleCheckOut = async () => {
-    //     let userEmail = localStorage.getItem("userEmail");
-    //     let response = await fetch("http://localhost:5000/api/auth/orderData", {
-    //         // credentials: 'include',
-    //         // Origin:"http://localhost:3000/login",
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({
-    //             order_data: data,
-    //             email: userEmail,
-    //             order_date: new Date().toDateString()
-    //         })
-    //     });
-    //     console.log("JSON RESPONSE:::::", response.status)
-    //     if (response.status === 200) {
-    //         dispatch({ type: "DROP" })
-    //     }
-    // }
+    const handleCheckOut = async () => {
+        let userEmail = localStorage.getItem("userEmail");
+        let response = await fetch("http://localhost:5000/api/orderData", {
+            // credentials: 'include',
+            // Origin:"http://localhost:3000/login",
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                order_data: data,
+                email: userEmail,
+                order_date: new Date().toDateString()
+            })
+        });
+        console.log("Order Response:", response)
+        if (response.status === 200) {
+            dispatch({ type: "DROP" })
+        }
+    }
 
     let totalPrice = data.reduce((total, food) => total + food.price, 0)
     return (
@@ -57,7 +57,7 @@ export default function Cart() {
                                 <td>{food.qty}</td>
                                 <td>{food.size}</td>
                                 <td>{food.price}</td>
-                                <td><button className='btn p-0'><Delete onclick={() => { dispatch({ type: "REMOVE", index: index }) }} /></button></td>
+                                <td><button type='button' className='btn p-0'><Delete onClick={() => { dispatch({ type: "REMOVE", index: index }) }} /></button></td>
                                 </tr>
                         ))}
                     </tbody>
@@ -66,7 +66,7 @@ export default function Cart() {
                     <h1 className='fs-2'> Total Price: {totalPrice}/-</h1>
                 </div>
                 <div>
-                    <button className='btn bg-success mt-5'>Check Out</button>
+                    <button className='btn bg-success mt-5' onClick={handleCheckOut}>Check Out</button>
                 </div>
             </div>
         </div>
