@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/FoodSpeed/static/css/main.9c18f086.css",
+    "main.js": "/FoodSpeed/static/js/main.e427daa6.js",
+    "static/js/787.7fe0dfbc.chunk.js": "/FoodSpeed/static/js/787.7fe0dfbc.chunk.js",
+    "index.html": "/FoodSpeed/index.html",
+    "main.9c18f086.css.map": "/FoodSpeed/static/css/main.9c18f086.css.map",
+    "main.e427daa6.js.map": "/FoodSpeed/static/js/main.e427daa6.js.map",
+    "787.7fe0dfbc.chunk.js.map": "/FoodSpeed/static/js/787.7fe0dfbc.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9c18f086.css",
+    "static/js/main.e427daa6.js"
+  ]
+}
